@@ -4,7 +4,7 @@ const cors = require("cors");
 require("dotenv").config();
 
 const { PORT, CORS_ORIGIN } = process.env;
-const allowedOrigins = CORS_ORIGIN.split(",");
+const allowedOrigins = CORS_ORIGIN;
 const port = PORT || 5051;
 
 app.use(cors({ origin: allowedOrigins }));
@@ -14,7 +14,7 @@ app.use(express.json());
 
 const usersRoutes = require("./routes/users-routes");
 const profileRoutes = require("./routes/profile-routes");
-const milstonesRoutes = require("./routes/milstones-routes");
+const milstonesRoutes = require("./routes/milestones-routes");
 const mediaRoutes=require("./routes/media-routes");
 
 
