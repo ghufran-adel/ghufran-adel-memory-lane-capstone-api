@@ -19,9 +19,9 @@ const mediaRoutes=require("./routes/media-routes");
 
 
 // All routes
-app.use("/api/users", usersRoutes);
+app.use("/api/", usersRoutes);
 app.use("/api/profile", profileRoutes);
-app.use("/api/milstonesRoutes", milstonesRoutes);
+app.use("/api/milstones", milstonesRoutes);
 app.use("/api/media", mediaRoutes);
 
 
