@@ -1,6 +1,10 @@
 const knex = require("knex")(require("../knexfile"));
 const bcrypt = require("bcrypt");
 
+const secretKey = process.env.SECRET_KEY; //check where it should loacted 
+
+const jwt = require("jsonwebtoken");
+
 // GET users list
 const getUsers = async (_req, res) => {
   try {
@@ -11,7 +15,9 @@ const getUsers = async (_req, res) => {
   }
 };
 
-// controller to add a new inventory item
+
+
+// controller to add a new user
 const addNewUser = async (req, res) => {
   const { user_name, email, password } = req.body;
 
@@ -39,4 +45,31 @@ const addNewUser = async (req, res) => {
   }
 };
 
-module.exports = { getUsers, addNewUser };
+// controller to login and got the token
+const logIn = async (req, res) => {
+  try {
+      const { email, password } = req.body;
+
+      // get all users from db and check if exisit
+      const userData = await knex("users").where({email: email}).first();
+      if (!userData) {
+          return res.status(404).json({ error: "User not found" });
+      }
+
+      // check password is correct 
+      const comparePassword = await bcrypt.compare(password, userData.password_hash);
+      if (!comparePassword) {
+          return res.status(401).json({ error: "Invalid password" });
+      }
+      
+      // create the token
+      let token= jwt.sign ({ userName: userData.user_name },secretKey);
+
+      res.status(200).json({token});
+  } catch (error) {
+      res.status(401).send(`Couldn't log you in, check email and password.`);
+  }
+};
+
+
+module.exports = { getUsers, addNewUser , logIn};

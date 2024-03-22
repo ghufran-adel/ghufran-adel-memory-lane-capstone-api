@@ -1,4 +1,6 @@
 //middleware function for validating the request body
+
+
 const validateSignUp = (req, res, next) => {
   if (!req.body.user_name || !req.body.password || !req.body.email) {
     const missingFields = [];
@@ -12,7 +14,6 @@ const validateSignUp = (req, res, next) => {
   }
   // Function to validate email format
   const validateEmail = () => {
-
     // Regular expression for basic email validation
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return emailRegex.test(req.body.email);

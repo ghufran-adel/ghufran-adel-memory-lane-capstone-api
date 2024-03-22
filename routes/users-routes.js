@@ -3,6 +3,7 @@ const router = express.Router();
 const usersControllers = require("../controllers/users-controllers");
 const {validateSignUp} = require("../middlewares/signUp-validation");
 
+
 router
     .route("/")
     .get(usersControllers.getUsers);
@@ -10,6 +11,10 @@ router
     router
     .route("/signup")
     .post(validateSignUp,usersControllers.addNewUser);
+
+    router
+    .route("/login")
+    .get(usersControllers.logIn);
 
 
 
