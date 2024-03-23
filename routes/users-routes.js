@@ -1,21 +1,19 @@
 const express = require("express");
 const router = express.Router();
 const usersControllers = require("../controllers/users-controllers");
-const {validateSignUp} = require("../middlewares/signUp-validation");
-
+const { authorize } = require("../middlewares/authorization");
+const { validateSignUp } = require("../middlewares/signUp-validation");
 
 router
-    .route("/")
-    .get(usersControllers.getUsers);
+.route("/").get(usersControllers.getUsers);
 
-    router
-    .route("/signup")
-    .post(validateSignUp,usersControllers.addNewUser);
+router
+.route("/:userId").get(authorize, usersControllers.getUser);
 
-    router
-    .route("/login")
-    .get(usersControllers.logIn);
+router
+.route("/signup").post(validateSignUp, usersControllers.addNewUser);
 
-
+router
+.route("/login").get(usersControllers.logIn);
 
 module.exports = router;
