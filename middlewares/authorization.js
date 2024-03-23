@@ -5,7 +5,6 @@ const secretKey = process.env.SECRET_KEY;
 
 //middleware function for authorize the request header
 function authorize(req, res, next) {
-	console.log("hi")
 
 	const { authorization } = req.headers;
 	const token = authorization.split(" ")[1];
@@ -23,7 +22,6 @@ function authorize(req, res, next) {
 	}
 
 	req.decoded = payload;
-	console.log(req.decoded)
 	next();
 }
 

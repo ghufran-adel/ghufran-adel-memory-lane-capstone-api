@@ -4,11 +4,9 @@ const usersControllers = require("../controllers/users-controllers");
 const { authorize } = require("../middlewares/authorization");
 const { validateSignUp } = require("../middlewares/signUp-validation");
 
-router
-.route("/").get(usersControllers.getUsers);
 
 router
-.route("/:userId").get(authorize, usersControllers.getUser);
+.route("/").get(authorize, usersControllers.getUser);
 
 router
 .route("/signup").post(validateSignUp, usersControllers.addNewUser);

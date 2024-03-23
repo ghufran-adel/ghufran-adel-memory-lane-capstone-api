@@ -5,15 +5,6 @@ const secretKey = process.env.SECRET_KEY; //check where it should loacted
 
 const jwt = require("jsonwebtoken");
 
-// GET users list
-const getUsers = async (_req, res) => {
-  try {
-    const data = await knex("users");
-    res.status(200).json(data);
-  } catch (error) {
-    res.status(400).send(`Error retrieving users: ${error}`);
-  }
-};
 
 
 // controller to add a new user
@@ -37,6 +28,8 @@ const addNewUser = async (req, res) => {
     });
 
     res.status(201).json(createdUser);
+
+
   } catch (error) {
     res.status(500).json({
       message: `Unable to create new user: ${error}`,
@@ -80,4 +73,4 @@ const getUser = async (req, res) => {
   res.json(req.decoded);
 };
 
-module.exports = { getUsers, getUser, addNewUser, logIn };
+module.exports = { getUser, addNewUser, logIn };

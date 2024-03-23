@@ -8,6 +8,8 @@ router
   .get(authorize, profileControllers.getProfilesByUserId)
   .post(authorize, profileControllers.addProfile);
 
-router.route("/:profileID").get(authorize, profileControllers.getOneProfile);
+router
+.route("/:profileID")
+.get(authorize, profileControllers.getOneProfile);
 
 module.exports = router;
