@@ -9,11 +9,11 @@ const getProfilesByUserId = async (req, res) => {
   try {
     const profiles = await knex("profile").where({ user_id: userId });
 
-    if (!profiles || profiles.length === 0) {
-      return res
-        .status(404)
-        .json({ message: "No profiles found for the user" });
-    }
+    // if (!profiles || profiles.length === 0) {
+    //   return res
+    //     .status(404)
+    //     .json({ message: "No profiles found for the user" });
+    // }
 
     res.json(profiles);
   } catch (error) {

@@ -10,19 +10,27 @@ function authorize(req, res, next) {
 	const token = authorization.split(" ")[1];
 
 	if (!authorization) {
-		return res.status(401).json("Please login");
+		return res.status(401).json("Please include a JWT token in the Authorization header");
 	}
 
-	const payload = jwt.verify(token, secretKey);
-
-	if (!payload) {
-		return res
-			.status(403)
-			.json("Error loading, please sign in again");
+	try{
+		const payload = jwt.verify(token, secretKey);
+		req.decoded = payload;
+		next();
 	}
+	catch (error) {
+        return res.status(403).json({ error: "Invalid or expired token" });
+    }
+	
 
-	req.decoded = payload;
-	next();
+	// if (!payload) {
+	// 	return res
+	// 		.status(403)
+	// 		.json("Error loading, please sign in again");
+	// }
+
+
+
 }
 
 // Export the middleware function

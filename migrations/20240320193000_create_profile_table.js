@@ -12,7 +12,8 @@ exports.up = function (knex) {
         .onUpdate('CASCADE')
         .onDelete('CASCADE');
       table.string("baby_name").notNullable();
-      table.date("baby_birthday").notNullable();
+      table.timestamp("baby_birthday").notNullable();
+      table.string("avatar_url");
       table.timestamp("created_at").defaultTo(knex.fn.now());
       table
         .timestamp("updated_at")
@@ -25,6 +26,6 @@ exports.up = function (knex) {
    * @returns { Promise<void> }
    */
   exports.down = function (knex) {
-    return knex.schema.dropTable("milestones")
+    return knex.schema.dropTable("profile")
   };
   

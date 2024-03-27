@@ -12,7 +12,7 @@ exports.up = function (knex) {
     .onUpdate('CASCADE')
     .onDelete('CASCADE');
     table.string("title").notNullable();
-    table.date("date").notNullable();
+    table.timestamp("date").notNullable();
     table.text("description").notNullable();
     table.decimal("latitude", 9, 6);
     table.decimal("longitude", 9, 6);

@@ -3,13 +3,15 @@ const app = express();
 const cors = require("cors");
 require("dotenv").config();
 
+app.use(express.static("public"));
+
 const { PORT, CORS_ORIGIN } = process.env;
 const allowedOrigins = CORS_ORIGIN;
 const port = PORT || 5051;
+console.log(CORS_ORIGIN)
 
 app.use(cors({ origin: allowedOrigins }));
 app.use(express.json());
-
 
 
 const usersRoutes = require("./routes/users-routes");

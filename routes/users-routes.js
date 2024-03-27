@@ -12,6 +12,6 @@ router
 .route("/signup").post(validateSignUp, usersControllers.addNewUser);
 
 router
-.route("/login").get(usersControllers.logIn);
+.route("/login").post(usersControllers.logIn);
 
 module.exports = router;

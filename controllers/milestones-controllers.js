@@ -1,11 +1,11 @@
 const knex = require("knex")(require("../knexfile"));
 
 const getMilestones = async (req, res) => {
-  console.log("hello");
+
   // get the id from the token in the request
 
   const userId = req.decoded.id;
-  const { profileId } = req.query;
+  const { profileId } = req.params;
 
   try {
     // Query milestones associated with the profile ID and user ID

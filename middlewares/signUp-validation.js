@@ -1,6 +1,4 @@
-//middleware function for validating the request body
-
-
+// Middleware function for validating the request body
 const validateSignUp = (req, res, next) => {
   if (!req.body.user_name || !req.body.password || !req.body.email) {
     const missingFields = [];
@@ -12,6 +10,7 @@ const validateSignUp = (req, res, next) => {
       message: `Missing required fields: ${missingFields.join(", ")}`,
     });
   }
+
   // Function to validate email format
   const validateEmail = () => {
     // Regular expression for basic email validation
@@ -19,7 +18,7 @@ const validateSignUp = (req, res, next) => {
     return emailRegex.test(req.body.email);
   };
 
-  if (validateEmail) {
+  if (!validateEmail()) {
     return res.status(400).json({
       message: "Invalid email format",
     });
