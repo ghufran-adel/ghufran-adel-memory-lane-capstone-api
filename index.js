@@ -3,7 +3,11 @@ const app = express();
 const cors = require("cors");
 require("dotenv").config();
 
+
+// Serve static files from the public/images directory
+// app.use("/public/images", express.static(__dirname + "/public/images/"));
 app.use(express.static("public"));
+
 
 const { PORT, CORS_ORIGIN } = process.env;
 const allowedOrigins = CORS_ORIGIN;
@@ -12,6 +16,10 @@ console.log(CORS_ORIGIN)
 
 app.use(cors({ origin: allowedOrigins }));
 app.use(express.json());
+
+
+
+// end of setting to upload image
 
 
 const usersRoutes = require("./routes/users-routes");
