@@ -57,13 +57,16 @@ const addProfile = async (req, res) => {
 
     // Extract profile data from the request body
     const { baby_name, baby_birthday } = req.body;
+    console.log(req.body , req.file)
+    
 
     // Insert the new profile into the database
     const result = await knex("profile").insert({
       user_id: userId,
       baby_name,
       baby_birthday,
-    });
+      avatar_url:req.file?`uploads/${req.file.filename}`: `images/defult-profile.jpg`
+    })
 
     // Check if the insertion was successful
     if (!result || result.length === 0) {

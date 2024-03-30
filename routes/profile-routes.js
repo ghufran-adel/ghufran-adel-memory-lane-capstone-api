@@ -2,11 +2,12 @@ const express = require("express");
 const router = express.Router();
 const profileControllers = require("../controllers/profile-controllers");
 const { authorize } = require("../middlewares/authorization");
+const { upload } = require("../middlewares/Multer");
 
 router
   .route("/")
   .get(authorize, profileControllers.getProfilesByUserId)
-  .post(authorize, profileControllers.addProfile);
+  .post(authorize, upload.single("image"),profileControllers.addProfile);
 
 router
 .route("/:profileID")
