@@ -11,6 +11,6 @@ router
 
 router
 .route("/:profileID")
-.get(authorize, profileControllers.getOneProfile);
-
+.get(authorize, profileControllers.getOneProfile)
+.delete(authorize, profileControllers.deleteProfile);
 module.exports = router;

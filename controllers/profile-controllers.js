@@ -9,12 +9,6 @@ const getProfilesByUserId = async (req, res) => {
   try {
     const profiles = await knex("profile").where({ user_id: userId });
 
-    // if (!profiles || profiles.length === 0) {
-    //   return res
-    //     .status(404)
-    //     .json({ message: "No profiles found for the user" });
-    // }
-
     res.json(profiles);
   } catch (error) {
     res.status(500).json({ message: `Error: ${error.message}` });
@@ -91,4 +85,34 @@ const addProfile = async (req, res) => {
   }
 };
 
-module.exports = { getProfilesByUserId, getOneProfile, addProfile };
+
+
+//   DELETE one profile related to the User ID
+
+const deleteProfile = async (req, res) => {
+  console.log('hi')
+  // get the id from the token
+  const userId = req.decoded.id;
+
+  const { profileID } = req.params;
+  try {
+    const profile = await knex("profile")
+      .where({ user_id: userId })
+      .where({ id: profileID });
+
+    if (!profile) {
+      return res.status(404).json({ message: "No profile found" });
+    }
+
+    const Deletedprofile = await knex("profile")
+    .where({ id: profileID })
+    .delete();
+      // No Content response
+      res.sendStatus(204);
+  } catch (error) {
+    res.status(500).json({ message: `Error: ${error.message}` });
+  }
+};
+
+
+module.exports = { getProfilesByUserId, getOneProfile, addProfile ,deleteProfile };
