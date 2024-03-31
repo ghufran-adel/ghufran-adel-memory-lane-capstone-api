@@ -12,5 +12,6 @@ router
 router
 .route("/:profileID")
 .get(authorize, profileControllers.getOneProfile)
-.delete(authorize, profileControllers.deleteProfile);
+.delete(authorize, profileControllers.deleteProfile)
+.patch(authorize,upload.single("image"), profileControllers.updateProfile);
 module.exports = router;

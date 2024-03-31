@@ -51,16 +51,16 @@ const addProfile = async (req, res) => {
 
     // Extract profile data from the request body
     const { baby_name, baby_birthday } = req.body;
-    console.log(req.body , req.file)
-    
 
     // Insert the new profile into the database
     const result = await knex("profile").insert({
       user_id: userId,
       baby_name,
       baby_birthday,
-      avatar_url:req.file?`uploads/${req.file.filename}`: `images/defult-profile.jpg`
-    })
+      avatar_url: req.file
+        ? `uploads/${req.file.filename}`
+        : `images/defult-profile.jpg`,
+    });
 
     // Check if the insertion was successful
     if (!result || result.length === 0) {
@@ -74,23 +74,19 @@ const addProfile = async (req, res) => {
       .where({ id: newProfileId })
       .first();
 
-    res
-      .status(201)
-      .json({
-        message: "Profile created successfully",
-        profile: createdProfile,
-      });
+    res.status(201).json({
+      message: "Profile created successfully",
+      profile: createdProfile,
+    });
   } catch (error) {
     res.status(500).json({ message: `Error: ${error.message}` });
   }
 };
 
-
-
 //   DELETE one profile related to the User ID
 
 const deleteProfile = async (req, res) => {
-  console.log('hi')
+  console.log("hi");
   // get the id from the token
   const userId = req.decoded.id;
 
@@ -105,14 +101,58 @@ const deleteProfile = async (req, res) => {
     }
 
     const Deletedprofile = await knex("profile")
-    .where({ id: profileID })
-    .delete();
-      // No Content response
-      res.sendStatus(204);
+      .where({ id: profileID })
+      .delete();
+    // No Content response
+    res.sendStatus(204);
   } catch (error) {
     res.status(500).json({ message: `Error: ${error.message}` });
   }
 };
 
+// UPDATE profile
 
-module.exports = { getProfilesByUserId, getOneProfile, addProfile ,deleteProfile };
+const updateProfile = async (req, res) => {
+  // get the id from the token
+  const userId = req.decoded.id;
+  const { profileID } = req.params;
+  try {
+    const profile = await knex("profile")
+      .where({ user_id: userId })
+      .where({ id: profileID });
+
+    if (!profile) {
+      return res.status(404).json({ message: "No profile found" });
+    }
+
+    // Extract profile data from the request body
+    const { baby_name, baby_birthday } = req.body;
+
+    // update profile in database
+    const result = await knex("profile")
+      .where({ id: profileID })
+      .update({
+        user_id: userId,
+        baby_name,
+        baby_birthday: new Date(baby_birthday),
+        avatar_url: req.file
+          ? `uploads/${req.file.filename}`
+          : `images/defult-profile.jpg`,
+        updated_at: new Date(),
+      });
+
+    res.status(200).json({
+      message: "Profile updated successfully",
+    });
+  } catch (error) {
+    res.status(500).json({ message: `Error: ${error.message}` });
+  }
+};
+
+module.exports = {
+  getProfilesByUserId,
+  getOneProfile,
+  addProfile,
+  deleteProfile,
+  updateProfile,
+};
