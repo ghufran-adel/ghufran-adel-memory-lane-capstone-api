@@ -10,13 +10,25 @@ exports.seed = async function (knex) {
             id:1,
             milestone_id: 1,
             media_type: 'image',
-            media_url: 'https://example.com/image1.jpg',
+            media_url: '/uploads/Baby-walking-1.jpg',
           },
           { 
             id:2,
+            milestone_id: 1,
+            media_type: 'image',
+            media_url: '/uploads/Baby-walking-3.jpg',
+          },
+          { 
+            id:3,
+            milestone_id: 1,
+            media_type: 'image',
+            media_url: '/uploads/Baby-walking-2.jpg',
+          },
+          { 
+            id:4,
             milestone_id: 2,
-            media_type: 'video',
-            media_url: 'https://example.com/video1.mp4',
+            media_type: 'image',
+            media_url: '/uploads/baby-frist-tooth.jpg',
           }
     ]);
   };

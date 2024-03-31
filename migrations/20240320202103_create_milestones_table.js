@@ -17,6 +17,7 @@ exports.up = function (knex) {
     table.decimal("latitude", 9, 6);
     table.decimal("longitude", 9, 6);
     table.string("address").notNullable();
+    table.string("people");
     table.timestamp("created_at").defaultTo(knex.fn.now());
     table
       .timestamp("updated_at")

@@ -17,7 +17,5 @@ router
    .get(authorize ,milestonesControllers.getOneMilestone)
    .delete(authorize ,milestonesControllers.deleteOneMilestone)
 
-//     .patch()
-//     .delete();
 
 module.exports = router;
