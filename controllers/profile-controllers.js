@@ -28,7 +28,7 @@ const getOneProfile = async (req, res) => {
       .where({ id: profileID });
 
     if (!profile) {
-      return res.status(404).json({ message: "No profile found" });
+      return res.status(403).json({ message: "Unauthorized access to profile" });
     }
 
     res.json(profile);
@@ -86,7 +86,7 @@ const addProfile = async (req, res) => {
 //   DELETE one profile related to the User ID
 
 const deleteProfile = async (req, res) => {
-  console.log("hi");
+
   // get the id from the token
   const userId = req.decoded.id;
 
@@ -97,7 +97,7 @@ const deleteProfile = async (req, res) => {
       .where({ id: profileID });
 
     if (!profile) {
-      return res.status(404).json({ message: "No profile found" });
+      return res.status(403).json({ message: "Unauthorized access to profile" });
     }
 
     const Deletedprofile = await knex("profile")
@@ -122,7 +122,7 @@ const updateProfile = async (req, res) => {
       .where({ id: profileID });
 
     if (!profile) {
-      return res.status(404).json({ message: "No profile found" });
+      return res.status(403).json({ message: "Unauthorized access to profile" });
     }
 
     // Extract profile data from the request body

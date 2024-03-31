@@ -5,8 +5,6 @@ const secretKey = process.env.SECRET_KEY; //check where it should loacted
 
 const jwt = require("jsonwebtoken");
 
-
-
 // controller to add a new user
 const addNewUser = async (req, res) => {
   const { user_name, email, password } = req.body;
@@ -28,8 +26,6 @@ const addNewUser = async (req, res) => {
     });
 
     res.status(201).json(createdUser);
-
-
   } catch (error) {
     res.status(500).json({
       message: `Unable to create new user: ${error}`,
@@ -58,15 +54,16 @@ const logIn = async (req, res) => {
     }
 
     // create the token
-    let token = jwt.sign({ user_name: userData.user_name , id: userData.id }, secretKey);
+    let token = jwt.sign(
+      { user_name: userData.user_name, id: userData.id },
+      secretKey
+    );
 
     res.status(200).json({ token });
   } catch (error) {
     res.status(401).send(`Couldn't log you in, check email and password.`);
   }
 };
-
-
 
 // to get one user Info
 const getUser = async (req, res) => {

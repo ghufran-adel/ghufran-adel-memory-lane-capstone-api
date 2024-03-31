@@ -43,10 +43,6 @@ const getMilestones = async (req, res) => {
   }
 };
 
-
-
-
-
 const getOneMilestone = async (req, res) => {
   // get the id from the token in the request
   const userId = req.decoded.id;
@@ -93,14 +89,9 @@ const getOneMilestone = async (req, res) => {
   }
 };
 
-
-
-
-
-// POST new milestone 
+// POST new milestone
 
 const addMilestone = async (req, res) => {
-
   // get the id from the token
   const userId = req.decoded.id;
   const { profileId } = req.params;
@@ -119,9 +110,9 @@ const addMilestone = async (req, res) => {
 
     // Extract profile data from the request body
     const { title, date, address, latitude, longitude, description } = req.body;
-    
+
     const latitudeValue = latitude ? parseFloat(latitude) : null;
-const longitudeValue = longitude ? parseFloat(longitude) : null;
+    const longitudeValue = longitude ? parseFloat(longitude) : null;
 
     // Insert the new milestone into the database
     const newMilestone = await knex("milestones").insert({
@@ -129,8 +120,8 @@ const longitudeValue = longitude ? parseFloat(longitude) : null;
       title,
       date,
       address,
-      latitude:latitudeValue,
-      longitude:longitudeValue,
+      latitude: latitudeValue,
+      longitude: longitudeValue,
       description,
     });
 
@@ -158,7 +149,12 @@ const longitudeValue = longitude ? parseFloat(longitude) : null;
     });
 
     // Check if the insertion was successful
-    if (!newMilestone || newMilestone.length === 0 || !createdMedia || createdMedia.length === 0) {
+    if (
+      !newMilestone ||
+      newMilestone.length === 0 ||
+      !createdMedia ||
+      createdMedia.length === 0
+    ) {
       return res.status(500).json({ message: "Failed to create milestone" });
     }
 
@@ -169,12 +165,47 @@ const longitudeValue = longitude ? parseFloat(longitude) : null;
         media_id: m.id,
         media_type: m.media_type,
         media_url: m.media_url,
-      }))
+      })),
     });
-
   } catch (error) {
     res.status(500).json({ message: `Error: ${error.message}` });
   }
 };
 
-module.exports = { getMilestones, getOneMilestone, addMilestone };
+// DELETE one milstone related to the profile ID
+
+const deleteOneMilestone = async (req, res) => {
+  // get the id from the token
+  const userId = req.decoded.id;
+
+  const { profileId } = req.params;
+  const { milestoneId } = req.params;
+
+  try {
+    // Check if the profile belongs to the user
+    const profile = await knex("profile")
+      .where({ id: profileId, user_id: userId })
+      .first();
+
+    if (!profile) {
+      return res
+        .status(403)
+        .json({ message: "Unauthorized access to profile" });
+    }
+
+    const Deletedmilstone = await knex("milestones")
+      .where({ id: milestoneId })
+      .delete();
+    // No Content response
+    res.sendStatus(204);
+  } catch (error) {
+    res.status(500).json({ message: `Error: ${error.message}` });
+  }
+};
+
+module.exports = {
+  getMilestones,
+  getOneMilestone,
+  addMilestone,
+  deleteOneMilestone,
+};

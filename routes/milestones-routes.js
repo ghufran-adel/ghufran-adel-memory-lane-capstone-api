@@ -15,6 +15,7 @@ router
 router
     .route("/:profileId/:milestoneId")
    .get(authorize ,milestonesControllers.getOneMilestone)
+   .delete(authorize ,milestonesControllers.deleteOneMilestone)
 
 //     .patch()
 //     .delete();
