@@ -41,7 +41,7 @@ Memory Lane API serves as the backend for a Memories application, providing endp
 
 1. Clone the repository :
 ```bash
-git clone <repository-urlt>
+git clone <repository-url>
 ```
 
 2.  create and Connect database using environment variables :
