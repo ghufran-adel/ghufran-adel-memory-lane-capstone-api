@@ -41,7 +41,7 @@ Memory Lane API serves as the backend for a Memories application, providing endp
 
 1. Clone the repository :
 ```bash
-git clone <rgit@github.com:ghufran-adel/ghufran-adel-memory-lane-capstone-api.git>
+git clone <repository-urlt>
 ```
 
 2.  create and Connect database using environment variables :
