@@ -95,6 +95,7 @@ const addMilestone = async (req, res) => {
   // get the id from the token
   const userId = req.decoded.id;
   const { profileId } = req.params;
+  console.log(req.body)
 
   try {
     // Check if the profile belongs to the user
@@ -109,7 +110,7 @@ const addMilestone = async (req, res) => {
     }
 
     // Extract profile data from the request body
-    const { title, date, address, latitude, longitude, description } = req.body;
+    const { title, date, address, latitude, longitude, description ,people } = req.body;
 
     const latitudeValue = latitude ? parseFloat(latitude) : null;
     const longitudeValue = longitude ? parseFloat(longitude) : null;
@@ -123,6 +124,7 @@ const addMilestone = async (req, res) => {
       latitude: latitudeValue,
       longitude: longitudeValue,
       description,
+      people:people
     });
 
     // Fetch the newly created milestone
