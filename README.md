@@ -1,7 +1,7 @@
 
 # Memory Lane API
 
-Memory Lane API is a backend application for a Memories app built with Express.js, Knex.js, and MySQL database.
+Memory Lane API serves as the backend for a Memories application, providing endpoints to manage user profiles, milestones, and media associated with each memory. Built using Express.js, Knex.js, and MySQL database, this API facilitates storing, retrieving, and managing memories stored by users.
 
 ## Table of Contents
 
@@ -24,10 +24,15 @@ Memory Lane API is a backend application for a Memories app built with Express.j
 
 ## Features
 
-- Create, read, and delete Memories 
-- Create, read, update, and delete profiles
-- Manage users accounts
-- Authenticate users and profiles
+- **User Authentication**: Users can sign up, log in, and authenticate using JSON Web Tokens (JWT), ensuring secure access to their memories.
+- **User Profiles Management**: Users have the ability to manage profiles for their children. This includes creating new profiles, editing existing ones, and deleting profiles as needed. This feature enhances user control and customization, allowing them to organize and personalize their memories more effectively.
+- **Memories Management**: Users can create, delete, and view their memories, including milestone events.
+- **Media Attachment**: Memories can include various types of media, such as images, videos, or audio recordings, providing a rich multimedia experience.
+- **Location Tagging**: Memories can be tagged with location information, allowing users to remember where each memory took place.
+- **Creative Memory Creation**: The API offers a creative memory creation feature where users can add descriptive titles and meaningful descriptions to their memories as well as people in the memory.
+- **Date Selection**: Users can select the date of each memory, capturing the moment accurately.
+- **Secure Authorization**: Authorization middleware ensures that users can only access their own memories and profiles, enhancing data security and privacy.
+
 
 
 ## Installation
@@ -36,7 +41,7 @@ Memory Lane API is a backend application for a Memories app built with Express.j
 
 1. Clone the repository :
 ```bash
-git clone <git@github.com:ghufran-adel/ghufran-adel-memory-lane-capstone-api.git>
+git clone <rgit@github.com:ghufran-adel/ghufran-adel-memory-lane-capstone-api.git>
 ```
 
 2.  create and Connect database using environment variables :
@@ -58,7 +63,7 @@ npm start
 ```
 
 ## API References
-- **google places api** : for au
+- **google places api** 
 
 ### Milestones Endpoints
 
@@ -86,18 +91,20 @@ npm start
 
 No screenshots available.
 
+
 ## Lessons Learned & Next Steps
 
-During the development process, attempts were made to implement socket functionality for real-time updates, but it was unsuccessful.
-
 ### Lessons Learned
-- Importance of thorough planning and testing for implementing advanced functionalities like sockets
-- Consideration of alternative approaches for real-time updates
+- **Thorough Planning and Testing:** The importance of thorough planning and testing became evident during the development process, particularly when implementing advanced functionalities such as notifications. Future projects will benefit from dedicating sufficient time to planning and testing to avoid issues encountered during implementation.
+  
+- **Consideration of Alternative Approaches:** Attempting to implement functionality using one approach and then pivoting to another when faced with challenges highlighted the importance of considering alternative approaches. This flexibility allows for adaptation and optimization, ultimately leading to more successful outcomes.
 
 ### Next Steps
-- Further investigation and implementation of socket functionality
-- Enhance API documentation and error handling
-- Implement additional features such as user roles and leaderboard
+- **Refine Notification Functionality:** Explore alternative methods and technologies for implementing notification functionality, considering lessons learned from the initial attempts. This may involve further research, experimentation, and possibly leveraging external services or APIs specialized in notifications.
+  
+- **Continuous Improvement:** Continuously seek opportunities for improvement and optimization in the development process. This includes refining development workflows, exploring new technologies, and staying updated on best practices in software development.
+  
+- **Enhance User Experience:** Prioritize enhancing the user experience by addressing any usability issues, optimizing performance, and adding new features based on user feedback. This could involve conducting user testing sessions, collecting feedback, and iteratively improving the application based on user insights.
 
 ## Frontend Repository
 
