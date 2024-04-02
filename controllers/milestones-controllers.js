@@ -95,7 +95,7 @@ const addMilestone = async (req, res) => {
   // get the id from the token
   const userId = req.decoded.id;
   const { profileId } = req.params;
-  console.log(req.body)
+  console.log(req.files[0].mimetype);
 
   try {
     // Check if the profile belongs to the user
@@ -110,7 +110,8 @@ const addMilestone = async (req, res) => {
     }
 
     // Extract profile data from the request body
-    const { title, date, address, latitude, longitude, description ,people } = req.body;
+    const { title, date, address, latitude, longitude, description, people } =
+      req.body;
 
     const latitudeValue = latitude ? parseFloat(latitude) : null;
     const longitudeValue = longitude ? parseFloat(longitude) : null;
@@ -124,7 +125,7 @@ const addMilestone = async (req, res) => {
       latitude: latitudeValue,
       longitude: longitudeValue,
       description,
-      people:people
+      people: people,
     });
 
     // Fetch the newly created milestone
@@ -137,10 +138,29 @@ const addMilestone = async (req, res) => {
       const filename = file.filename;
       const mediaUrl = `/uploads/${filename}`;
 
+      // check what type of media has been loaded
+      const checkedMediaType = (req) => {
+        if (req.files && req.files[0].mimetype) {
+          const mimeType = req.files[0].mimetype;
+          if (/^video\//.test(mimeType)) {
+            return "video";
+          } else if (/^image\//.test(mimeType)) {
+            return "image";
+          } else if (/^audio\//.test(mimeType)) {
+            return "audio";
+          } else {
+            // If it's not a recognized type
+            return "unknown";
+          }
+        } else {
+          // If req.files or req.files.mimetype is not available
+          return "missing";
+        }
+      };
       // Insert the new media related to this milestone into the database
       const newMedia = await knex("media").insert({
         milestone_id: newMilestone[0],
-        media_type: "image",
+        media_type: checkedMediaType(req),
         media_url: mediaUrl,
       });
     }

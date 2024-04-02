@@ -12,7 +12,11 @@ const storage = multer.diskStorage({
 });
 
 // Initialize Multer with the defined storage
-const upload = multer({ storage: storage });
+const upload = multer({ storage: storage ,   
+  limits: {
+    fileSize: 10000000 // 10000000 Bytes = 10 MB
+  },
+});
 
 
 // Export the middleware function
